@@ -1,27 +1,27 @@
 //
-//  JsonSerializeTests.swift
-//  JsonSerializeTests
+//  JSONSerializeTests.swift
+//  JSONSerializeTests
 //
 //  Created by ap4y on 11/07/14.
 //  Copyright (c) 2014 ap4y. All rights reserved.
 //
 
 import XCTest
-import JsonSerialize
+import JSONSerialize
 
-class TestSubStruct: ToJson, FromJson {
+class TestSubStruct: ToJSON, FromJSON {
     let foo = "bar"
 
     init(foo: String) {
         self.foo = foo
     }
 
-    func toJson() -> Json {
-        return Json.Object(["foo": foo.toJson()])
+    func toJSON() -> JSON {
+        return JSON.Object(["foo": foo.toJSON()])
     }
 
-    class func fromJson(json: Json) -> TestSubStruct? {
-        let decoder = JsonDecoder(json: json)
+    class func fromJSON(json: JSON) -> TestSubStruct? {
+        let decoder = JSONDecoder(json: json)
         if let value: String = decoder.readValue("foo") {
             return TestSubStruct(foo: value)
         }
@@ -29,7 +29,7 @@ class TestSubStruct: ToJson, FromJson {
     }
 }
 
-class TestStruct: ToJson, FromJson {
+class TestStruct: ToJSON, FromJSON {
     let int    = 123
     let float  = 123.0
     let string = "foo"
@@ -40,8 +40,8 @@ class TestStruct: ToJson, FromJson {
     var date   = NSDate(timeIntervalSince1970: 0)
 
     init() {}
-    init(json: Json) {
-        let decoder = JsonDecoder(json: json)
+    init(json: JSON) {
+        let decoder = JSONDecoder(json: json)
         int    = decoder.readValue("int")!
         float  = decoder.readValue("float")!
         string = decoder.readValue("string")!
@@ -52,51 +52,51 @@ class TestStruct: ToJson, FromJson {
         date   = decoder.readValue("date")!
     }
 
-    func toJson() -> Json {
+    func toJSON() -> JSON {
         let json = [
-            "int":    int.toJson(),
-            "float":  float.toJson(),
-            "string": string.toJson(),
-            "bool":   bool.toJson(),
-            "array":  Json.fromArray(array),
-            "dict":   Json.fromDictionary(dict),
-            "sub":    sub.toJson(),
-            "null":   Json.Null,
-            "date":   date.toJson()
+            "int":    int.toJSON(),
+            "float":  float.toJSON(),
+            "string": string.toJSON(),
+            "bool":   bool.toJSON(),
+            "array":  JSON.fromArray(array),
+            "dict":   JSON.fromDictionary(dict),
+            "sub":    sub.toJSON(),
+            "null":   JSON.Null,
+            "date":   date.toJSON()
         ]
-        return Json.Object(json)
+        return JSON.Object(json)
     }
 
-    class func fromJson(value: Json) -> TestStruct? {
+    class func fromJSON(value: JSON) -> TestStruct? {
         return value.object ? TestStruct(json: value) : nil
     }
 }
 
-class JsonSerializeTests: XCTestCase {
+class JSONSerializeTests: XCTestCase {
 
-    func testJsonEncode() {
+    func testJSONEncode() {
         let testObject = TestStruct()
         let expected = "{\"int\":123.0,\"bool\":true,\"null\":null,\"date\":0.0," +
                        "\"array\":[\"foo\"],\"dict\":{\"foo\":\"bar\"}," +
                        "\"float\":123.0,\"string\":\"foo\",\"sub\":{\"foo\":\"bar\"}}"
-        let encoded = testObject.toJson().toString()
+        let encoded = testObject.toJSON().toString()
         XCTAssert(encoded == expected, "Invalid JSON: \(encoded)")
     }
 
-    func testJsonEncodeOptional() {
+    func testJSONEncodeOptional() {
         var test: Int?
-        XCTAssert(Json.fromOptional(test).toString() == "null", "Should be Null")
+        XCTAssert(JSON.fromOptional(test).toString() == "null", "Should be Null")
 
         test = 10
-        XCTAssert(Json.fromOptional(test).toString() == "10.0", "Should be 10.0")
+        XCTAssert(JSON.fromOptional(test).toString() == "10.0", "Should be 10.0")
     }
 
-    func testJsonDecode() {
+    func testJSONDecode() {
         let jsonString = "{\"int\":321.0,\"bool\":false,\"date\":0," +
                          "\"array\":[\"bar\"],\"dict\":{\"bar\":\"baz\"}," +
                          "\"float\":321.0,\"string\":\"bar\",\"sub\":{\"foo\":\"bar\"}}"
 
-        let json = Json.jsonWithJsonString(jsonString)
+        let json = JSON.jsonWithJSONString(jsonString)
         let decoded = TestStruct(json: json)
 
         XCTAssert(decoded.int == 321, "Invalid int value")

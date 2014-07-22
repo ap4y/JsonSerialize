@@ -1,32 +1,30 @@
-import Foundation
+public class JSONDecoder {
 
-public class JsonDecoder {
+    let json: JSON
 
-    let json: Json
-
-    public init(json: Json) {
+    public init(json: JSON) {
         self.json = json
     }
 
     public init(jsonString: String) {
-        json = Json.jsonWithJsonString(jsonString)
+        json = JSON.jsonWithJSONString(jsonString)
     }
 
-    public func readValue<T: FromJson>(key: String) -> T? {
+    public func readValue<T: FromJSON>(key: String) -> T? {
         if let value = json.object?[key] {
-            return T.fromJson(value)
+            return T.fromJSON(value)
         }
 
         return nil
     }
 
-    public func readArray<T: FromJson>(key: String) -> [T]? {
+    public func readArray<T: FromJSON>(key: String) -> [T]? {
         if let value = json.object?[key] {
             switch value {
             case let .Array(array):
                 var result = [T]()
                 for item in array {
-                    if let item = T.fromJson(item) { result.append(item) }
+                    if let item = T.fromJSON(item) { result.append(item) }
                 }
                 return result
             default:
@@ -37,13 +35,13 @@ public class JsonDecoder {
         return nil
     }
 
-    public func readDictionary<V: FromJson>(key: String) -> [String: V]? {
+    public func readDictionary<V: FromJSON>(key: String) -> [String: V]? {
         if let value = json.object?[key] {
             switch value {
             case let .Object(object):
                 var result = Dictionary<String, V>()
                 for (key, item) in object {
-                    if let value = V.fromJson(item) {
+                    if let value = V.fromJSON(item) {
                         result[key as String] = value
                     }
                 }

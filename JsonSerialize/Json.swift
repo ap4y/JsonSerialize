@@ -1,15 +1,15 @@
-public typealias JsonArray  = [Json]
-public typealias JsonObject = Dictionary<Swift.String, Json>
+public typealias JSONArray  = [JSON]
+public typealias JSONObject = Dictionary<Swift.String, JSON>
 
-public enum Json {
+public enum JSON {
     case Number(Double)
     case String(Swift.String)
     case Boolean(Bool)
-    case Array(JsonArray)
-    case Object(JsonObject)
+    case Array(JSONArray)
+    case Object(JSONObject)
     case Null
 
-    public var object: JsonObject? {
+    public var object: JSONObject? {
         switch self {
         case let .Object(object):
             return object
@@ -18,14 +18,14 @@ public enum Json {
         }
     }
 
-    public static func jsonWithJsonString(jsonString: Swift.String) -> Json {
+    public static func jsonWithJSONString(jsonString: Swift.String) -> JSON {
         let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding)
         let opts = NSJSONReadingOptions(0)
         let json: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: opts, error: nil)
 
         return jsonWithAnyObject(json);
     }
-    public static func jsonWithAnyObject(json: AnyObject!) -> Json {
+    public static func jsonWithAnyObject(json: AnyObject!) -> JSON {
         if !json { return .Null }
 
         switch json! {
@@ -34,13 +34,13 @@ public enum Json {
         case let string as NSString:
             return .String(string)
         case let array as NSArray:
-            var result = JsonArray()
+            var result = JSONArray()
             for item in array {
                 result.append(jsonWithAnyObject(item))
             }
             return .Array(result)
         case let dict as NSDictionary:
-            var result = JsonObject()
+            var result = JSONObject()
             for (key, value) in dict {
                 if !(key is Swift.String) { continue }
                 result[key as Swift.String] = jsonWithAnyObject(value)
