@@ -26,6 +26,11 @@ extension Bool: ToJson {
     }
 }
 
+extension NSDate: ToJson {
+    func toJson() -> Json {
+        return Json.Number(timeIntervalSince1970)
+    }
+}
 
 extension Json {
     static func fromArray<T: ToJson>(array: [T]) -> Json {
