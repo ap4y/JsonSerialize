@@ -37,6 +37,7 @@ class TestStruct: ToJson, FromJson {
     let array  = ["foo"]
     var dict   = ["foo": "bar"]
     var sub    = TestSubStruct(foo: "bar")
+    var date   = NSDate(timeIntervalSince1970: 0)
 
     init() {}
     init(json: Json) {
@@ -48,6 +49,7 @@ class TestStruct: ToJson, FromJson {
         array  = decoder.readArray("array")!
         dict   = decoder.readDictionary("dict")!
         sub    = decoder.readValue("sub")!
+        date   = decoder.readValue("date")!
     }
 
     func toJson() -> Json {
@@ -59,8 +61,9 @@ class TestStruct: ToJson, FromJson {
             "array":  Json.fromArray(array),
             "dict":   Json.fromDictionary(dict),
             "sub":    sub.toJson(),
-            "null":   Json.Null
-            ]
+            "null":   Json.Null,
+            "date":   date.toJson()
+        ]
         return Json.Object(json)
     }
 
@@ -73,9 +76,9 @@ class JsonSerializeTests: XCTestCase {
 
     func testJsonEncode() {
         let testObject = TestStruct()
-        let expected = "{\"int\":123.0,\"bool\":true,\"null\":null," +
-        "\"array\":[\"foo\"],\"dict\":{\"foo\":\"bar\"}," +
-        "\"float\":123.0,\"string\":\"foo\",\"sub\":{\"foo\":\"bar\"}}"
+        let expected = "{\"int\":123.0,\"bool\":true,\"null\":null,\"date\":0.0," +
+                       "\"array\":[\"foo\"],\"dict\":{\"foo\":\"bar\"}," +
+                       "\"float\":123.0,\"string\":\"foo\",\"sub\":{\"foo\":\"bar\"}}"
         let encoded = testObject.toJson().toString()
         XCTAssert(encoded == expected, "Invalid JSON: \(encoded)")
     }
@@ -89,12 +92,12 @@ class JsonSerializeTests: XCTestCase {
     }
 
     func testJsonDecode() {
-        let jsonString = "{\"int\":321.0,\"bool\":false," +
-        "\"array\":[\"bar\"],\"dict\":{\"bar\":\"baz\"}," +
-        "\"float\":321.0,\"string\":\"bar\",\"sub\":{\"foo\":\"bar\"}}"
+        let jsonString = "{\"int\":321.0,\"bool\":false,\"date\":0," +
+                         "\"array\":[\"bar\"],\"dict\":{\"bar\":\"baz\"}," +
+                         "\"float\":321.0,\"string\":\"bar\",\"sub\":{\"foo\":\"bar\"}}"
 
-        let decoder = JsonDecoder(jsonString: jsonString)
-        let decoded = TestStruct(json: decoder.json)
+        let json = Json.jsonWithJsonString(jsonString)
+        let decoded = TestStruct(json: json)
 
         XCTAssert(decoded.int == 321, "Invalid int value")
         XCTAssert(decoded.bool == false, "Invalid bool value")
@@ -103,5 +106,6 @@ class JsonSerializeTests: XCTestCase {
         XCTAssert(decoded.float == 321.0, "Invalid float value")
         XCTAssert(decoded.string == "bar", "Invalid string value")
         XCTAssert(decoded.sub.foo == "bar", "Invalid sub value")
+        XCTAssert(decoded.date == NSDate(timeIntervalSince1970: 0), "Invalid date value")
     }
 }
