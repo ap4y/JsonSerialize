@@ -45,3 +45,14 @@ extension Bool: FromJson {
         }
     }
 }
+
+extension NSDate: FromJson {
+    class func fromJson(value: Json) -> NSDate? {
+        switch value {
+        case let .Number(interval):
+            return NSDate(timeIntervalSince1970: interval)
+        default:
+            return nil
+        }
+    }
+}
