@@ -1,9 +1,9 @@
-protocol FromJson {
+public protocol FromJson {
     class func fromJson(value: Json) -> Self?
 }
 
 extension Int: FromJson {
-    static func fromJson(value: Json) -> Int? {
+    public static func fromJson(value: Json) -> Int? {
         switch value {
         case let .Number(number):
             return Int(number)
@@ -14,7 +14,7 @@ extension Int: FromJson {
 }
 
 extension Double: FromJson {
-    static func fromJson(value: Json) -> Double? {
+    public static func fromJson(value: Json) -> Double? {
         switch value {
         case let .Number(number):
             return number
@@ -25,7 +25,7 @@ extension Double: FromJson {
 }
 
 extension String: FromJson {
-    static func fromJson(value: Json) -> String? {
+    public static func fromJson(value: Json) -> String? {
         switch value {
         case let .String(string):
             return string
@@ -36,10 +36,10 @@ extension String: FromJson {
 }
 
 extension Bool: FromJson {
-    static func fromJson(value: Json) -> Bool? {
+    public static func fromJson(value: Json) -> Bool? {
         switch value {
-        case let .Boolean(bool):
-            return bool
+        case let .Number(number):
+            return Bool(number)
         default:
             return nil
         }
@@ -47,7 +47,7 @@ extension Bool: FromJson {
 }
 
 extension NSDate: FromJson {
-    class func fromJson(value: Json) -> NSDate? {
+    public class func fromJson(value: Json) -> NSDate? {
         switch value {
         case let .Number(interval):
             return NSDate(timeIntervalSince1970: interval)

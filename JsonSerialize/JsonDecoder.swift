@@ -1,18 +1,18 @@
 import Foundation
 
-class JsonDecoder {
+public class JsonDecoder {
 
     let json: Json
 
-    init(json: Json) {
+    public init(json: Json) {
         self.json = json
     }
 
-    init(jsonString: String) {
+    public init(jsonString: String) {
         json = Json.jsonWithJsonString(jsonString)
     }
 
-    func readValue<T: FromJson>(key: String) -> T? {
+    public func readValue<T: FromJson>(key: String) -> T? {
         if let value = json.object?[key] {
             return T.fromJson(value)
         }
@@ -20,7 +20,7 @@ class JsonDecoder {
         return nil
     }
 
-    func readArray<T: FromJson>(key: String) -> [T]? {
+    public func readArray<T: FromJson>(key: String) -> [T]? {
         if let value = json.object?[key] {
             switch value {
             case let .Array(array):
@@ -37,7 +37,7 @@ class JsonDecoder {
         return nil
     }
 
-    func readDictionary<V: FromJson>(key: String) -> [String: V]? {
+    public func readDictionary<V: FromJson>(key: String) -> [String: V]? {
         if let value = json.object?[key] {
             switch value {
             case let .Object(object):

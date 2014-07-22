@@ -1,7 +1,7 @@
-typealias JsonArray  = [Json]
-typealias JsonObject = Dictionary<Swift.String, Json>
+public typealias JsonArray  = [Json]
+public typealias JsonObject = Dictionary<Swift.String, Json>
 
-enum Json {
+public enum Json {
     case Number(Double)
     case String(Swift.String)
     case Boolean(Bool)
@@ -9,7 +9,7 @@ enum Json {
     case Object(JsonObject)
     case Null
 
-    var object: JsonObject? {
+    public var object: JsonObject? {
         switch self {
         case let .Object(object):
             return object
@@ -18,19 +18,18 @@ enum Json {
         }
     }
 
-    static func jsonWithJsonString(jsonString: Swift.String) -> Json {
+    public static func jsonWithJsonString(jsonString: Swift.String) -> Json {
         let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding)
         let opts = NSJSONReadingOptions(0)
         let json: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: opts, error: nil)
 
         return jsonWithAnyObject(json);
     }
-    static func jsonWithAnyObject(json: AnyObject!) -> Json {
+    public static func jsonWithAnyObject(json: AnyObject!) -> Json {
         if !json { return .Null }
 
         switch json! {
         case let number as NSNumber:
-            if number.objCType == "c" { return .Boolean(number.boolValue) }
             return .Number(number.doubleValue)
         case let string as NSString:
             return .String(string)
@@ -52,7 +51,7 @@ enum Json {
         }
     }
 
-    func toString() -> Swift.String {
+    public func toString() -> Swift.String {
         switch self {
         case let .Number(number):
             return "\(number)"
@@ -63,13 +62,13 @@ enum Json {
         case let .Array(array):
             var result = "["
             for item in array { result += "\(item.toString())," }
-            return result[result.startIndex...advance(result.endIndex, -1)] + "]"
+            return result[result.startIndex..<advance(result.endIndex, -1)] + "]"
         case let .Object(object):
             var result = "{"
             for (key, value) in object {
                 result += "\"\(key)\":\(value.toString()),"
             }
-            return result[result.startIndex...advance(result.endIndex, -1)] + "}"
+            return result[result.startIndex..<advance(result.endIndex, -1)] + "}"
         case .Null:
             return "null"
         }
