@@ -9,37 +9,7 @@ class JsonDecoder {
     }
 
     init(jsonString: String) {
-        let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding)
-        let dict: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions(0), error: nil)
-
-        json = JsonDecoder.jsonWithAnyObject(dict)
-    }
-
-    class func jsonWithAnyObject(json: AnyObject!) -> Json {
-        if !json { return .Null }
-
-        switch json! {
-        case let number as NSNumber:
-            if number.objCType == "c" { return .Boolean(number.boolValue) }
-            return .Number(number.doubleValue)
-        case let string as NSString:
-            return .String(string)
-        case let array as NSArray:
-            var result = JsonArray()
-            for item in array {
-                result.append(jsonWithAnyObject(item))
-            }
-            return .Array(result)
-        case let dict as NSDictionary:
-            var result = JsonObject()
-            for (key, value) in dict {
-                if !(key is Swift.String) { continue }
-                result[key as Swift.String] = jsonWithAnyObject(value)
-            }
-            return .Object(result)
-        default:
-            return .Null
-        }
+        json = Json.jsonWithJsonString(jsonString)
     }
 
     func readValue<T: FromJson>(key: String) -> T? {
