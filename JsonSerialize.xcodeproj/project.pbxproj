@@ -7,14 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F8350F6B197E3135006CB48C /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F66197E3135006CB48C /* FromJSON.swift */; };
+		F80CB80B19810E1E00B8AC74 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CB80A19810E1E00B8AC74 /* JSONDecodable.swift */; };
 		F8350F6C197E3135006CB48C /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F67197E3135006CB48C /* JSON.swift */; };
 		F8350F6D197E3135006CB48C /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F68197E3135006CB48C /* JSONDecoder.swift */; };
 		F8350F6E197E3135006CB48C /* JSONSerialize.h in Headers */ = {isa = PBXBuildFile; fileRef = F8350F69197E3135006CB48C /* JSONSerialize.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F8350F6F197E3135006CB48C /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F6A197E3135006CB48C /* ToJSON.swift */; };
 		F8350F75197E31D3006CB48C /* JSONSerializeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F72197E3160006CB48C /* JSONSerializeTests.swift */; };
 		F85C2D32197E364400F8B67B /* JSONSerialize.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F85C2D27197E364400F8B67B /* JSONSerialize.framework */; };
-		F85C2D41197E36FD00F8B67B /* FromJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F66197E3135006CB48C /* FromJSON.swift */; };
 		F85C2D42197E36FD00F8B67B /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F67197E3135006CB48C /* JSON.swift */; };
 		F85C2D43197E36FD00F8B67B /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F68197E3135006CB48C /* JSONDecoder.swift */; };
 		F85C2D44197E36FD00F8B67B /* ToJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F6A197E3135006CB48C /* ToJSON.swift */; };
@@ -55,7 +54,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F8350F66197E3135006CB48C /* FromJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FromJSON.swift; path = JSONSerialize/FromJSON.swift; sourceTree = SOURCE_ROOT; };
+		F80CB80A19810E1E00B8AC74 /* JSONDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecodable.swift; sourceTree = "<group>"; };
 		F8350F67197E3135006CB48C /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSON.swift; path = JSONSerialize/JSON.swift; sourceTree = SOURCE_ROOT; };
 		F8350F68197E3135006CB48C /* JSONDecoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONDecoder.swift; path = JSONSerialize/JSONDecoder.swift; sourceTree = SOURCE_ROOT; };
 		F8350F69197E3135006CB48C /* JSONSerialize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = JSONSerialize.h; path = JSONSerialize/JSONSerialize.h; sourceTree = SOURCE_ROOT; };
@@ -126,7 +125,7 @@
 		F8E404A1196FC03500CC1CB9 /* JSONSerialize */ = {
 			isa = PBXGroup;
 			children = (
-				F8350F66197E3135006CB48C /* FromJSON.swift */,
+				F80CB80A19810E1E00B8AC74 /* JSONDecodable.swift */,
 				F8350F67197E3135006CB48C /* JSON.swift */,
 				F8350F68197E3135006CB48C /* JSONDecoder.swift */,
 				F8350F69197E3135006CB48C /* JSONSerialize.h */,
@@ -339,7 +338,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F85C2D41197E36FD00F8B67B /* FromJSON.swift in Sources */,
 				F85C2D42197E36FD00F8B67B /* JSON.swift in Sources */,
 				F85C2D43197E36FD00F8B67B /* JSONDecoder.swift in Sources */,
 				F85C2D44197E36FD00F8B67B /* ToJSON.swift in Sources */,
@@ -360,8 +358,8 @@
 			files = (
 				F8350F6F197E3135006CB48C /* ToJSON.swift in Sources */,
 				F8350F6D197E3135006CB48C /* JSONDecoder.swift in Sources */,
-				F8350F6B197E3135006CB48C /* FromJSON.swift in Sources */,
 				F8350F6C197E3135006CB48C /* JSON.swift in Sources */,
+				F80CB80B19810E1E00B8AC74 /* JSONDecodable.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,6 +632,7 @@
 				F85C2D3C197E364400F8B67B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F85C2D3D197E364400F8B67B /* Build configuration list for PBXNativeTarget "JSONSerializeOSXTests" */ = {
 			isa = XCConfigurationList;
@@ -642,6 +641,7 @@
 				F85C2D3F197E364400F8B67B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F8E40499196FC03500CC1CB9 /* Build configuration list for PBXProject "JSONSerialize" */ = {
 			isa = XCConfigurationList;
