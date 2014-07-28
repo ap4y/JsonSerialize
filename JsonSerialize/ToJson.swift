@@ -33,11 +33,11 @@ extension NSDate: ToJSON {
 }
 
 extension JSON {
-    public static func fromArray<T: ToJSON>(array: [T]) -> JSON {
+    public static func JSONWithArray<T: ToJSON>(array: [T]) -> JSON {
         return JSON.Array(array.map { $0.toJSON() })
     }
 
-    public static func fromDictionary<K, V: ToJSON>(dict: Dictionary<K, V>) -> JSON {
+    public static func JSONWithDictionary<K, V: ToJSON>(dict: Dictionary<K, V>) -> JSON {
         var result = JSONObject()
         for (key, value) in dict {
             if !(key is Swift.String) { continue }
@@ -47,7 +47,7 @@ extension JSON {
         return JSON.Object(result)
     }
 
-    public static func fromOptional<T: ToJSON>(optional: Optional<T>) -> JSON {
+    public static func JSONWithOptional<T: ToJSON>(optional: Optional<T>) -> JSON {
         switch optional {
         case let .Some(value):
             return value.toJSON()

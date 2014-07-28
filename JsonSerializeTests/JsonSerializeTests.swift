@@ -55,8 +55,8 @@ class TestStruct: ToJSON {
             "float":  float.toJSON(),
             "string": string.toJSON(),
             "bool":   bool.toJSON(),
-            "array":  JSON.fromArray(array),
-            "dict":   JSON.fromDictionary(dict),
+            "array":  JSON.JSONWithArray(array),
+            "dict":   JSON.JSONWithDictionary(dict),
             "sub":    sub.toJSON(),
             "null":   JSON.Null,
             "date":   date.toJSON()
@@ -78,10 +78,10 @@ class JSONSerializeTests: XCTestCase {
 
     func testJSONEncodeOptional() {
         var test: Int?
-        XCTAssert(JSON.fromOptional(test).toString() == "null", "Should be Null")
+        XCTAssert(JSON.JSONWithOptional(test).toString() == "null", "Should be Null")
 
         test = 10
-        XCTAssert(JSON.fromOptional(test).toString() == "10.0", "Should be 10.0")
+        XCTAssert(JSON.JSONWithOptional(test).toString() == "10.0", "Should be 10.0")
     }
 
     func testJSONDecode() {
