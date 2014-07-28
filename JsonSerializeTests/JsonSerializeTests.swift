@@ -101,4 +101,13 @@ class JSONSerializeTests: XCTestCase {
         XCTAssert(decoded.sub.foo == "bar", "Invalid sub value")
         XCTAssert(decoded.date == NSDate(timeIntervalSince1970: 0), "Invalid date value")
     }
+
+    func testJSONDecodeNested() {
+        let jsonString = "{\"nested\":{\"foo\":\"bar\"}}"
+
+        let decoder = JSONDecoder(jsonString: jsonString)
+        let decoded: TestSubStruct = decoder.readValueForKey("nested")!
+
+        XCTAssert(decoded.foo == "bar", "Invalid value")
+    }
 }
