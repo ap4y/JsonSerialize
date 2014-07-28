@@ -94,7 +94,7 @@ class JSONSerializeTests: XCTestCase {
 
         XCTAssert(decoded.int == 321, "Invalid int value")
         XCTAssert(decoded.bool == false, "Invalid bool value")
-        XCTAssert(decoded.array == ["bar"], "Invalid array value \(decoded.array)")
+        XCTAssert(decoded.array == ["bar"], "Invalid array value")
         XCTAssert(decoded.dict == ["bar": "baz"], "Invalid dic value")
         XCTAssert(decoded.float == 321.0, "Invalid float value")
         XCTAssert(decoded.string == "bar", "Invalid string value")
