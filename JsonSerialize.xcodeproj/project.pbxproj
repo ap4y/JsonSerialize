@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		F80CB80B19810E1E00B8AC74 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CB80A19810E1E00B8AC74 /* JSONDecodable.swift */; };
+		F80CB80C1981102B00B8AC74 /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F80CB80A19810E1E00B8AC74 /* JSONDecodable.swift */; };
 		F8350F6C197E3135006CB48C /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F67197E3135006CB48C /* JSON.swift */; };
 		F8350F6D197E3135006CB48C /* JSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8350F68197E3135006CB48C /* JSONDecoder.swift */; };
 		F8350F6E197E3135006CB48C /* JSONSerialize.h in Headers */ = {isa = PBXBuildFile; fileRef = F8350F69197E3135006CB48C /* JSONSerialize.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -338,6 +339,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F80CB80C1981102B00B8AC74 /* JSONDecodable.swift in Sources */,
 				F85C2D42197E36FD00F8B67B /* JSON.swift in Sources */,
 				F85C2D43197E36FD00F8B67B /* JSONDecoder.swift in Sources */,
 				F85C2D44197E36FD00F8B67B /* ToJSON.swift in Sources */,
