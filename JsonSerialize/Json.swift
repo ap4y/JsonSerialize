@@ -1,13 +1,17 @@
 public typealias JSONArray  = [JSON]
 public typealias JSONObject = Dictionary<Swift.String, JSON>
 
-public enum JSON {
+public enum JSON: Printable {
     case Number(Double)
     case String(Swift.String)
     case Boolean(Bool)
     case Array(JSONArray)
     case Object(JSONObject)
     case Null
+
+    public var description: Swift.String {
+        return toString()
+    }
 
     public var object: JSONObject? {
         switch self {
