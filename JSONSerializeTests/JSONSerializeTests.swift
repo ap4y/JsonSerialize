@@ -12,7 +12,7 @@ import JSONSerialize
 class TestSubStruct: ToJSON, JSONDecodable {
     let foo = "bar"
 
-    init(foo: String) {
+    required init(foo: String) {
         self.foo = foo
     }
 
@@ -20,9 +20,9 @@ class TestSubStruct: ToJSON, JSONDecodable {
         return JSON.Object(["foo": foo.toJSON()])
     }
 
-    class func decode(decoder: JSONDecoder) -> TestSubStruct? {
+    class func decode(decoder: JSONDecoder) -> Self? {
         return decoder.readObject { [unowned decoder] in
-            TestSubStruct(foo: decoder.readValueForKey("foo")!)
+            self(foo: decoder.readValueForKey("foo")!)
         }
     }
 }
@@ -69,9 +69,9 @@ class JSONSerializeTests: XCTestCase {
 
     func testJSONEncode() {
         let testObject = TestStruct()
-        let expected = "{\"int\":123.0,\"bool\":true,\"null\":null,\"date\":0.0," +
+        let expected = "{\"bool\":true,\"date\":0.0,\"sub\":{\"foo\":\"bar\"}," +
                        "\"array\":[\"foo\"],\"dict\":{\"foo\":\"bar\"}," +
-                       "\"float\":123.0,\"string\":\"foo\",\"sub\":{\"foo\":\"bar\"}}"
+                       "\"float\":123.0,\"string\":\"foo\",\"null\":null,\"int\":123.0}"
         let encoded = testObject.toJSON().toString()
         XCTAssert(encoded == expected, "Invalid JSON: \(encoded)")
     }

@@ -24,13 +24,15 @@ public enum JSON: Printable {
 
     public static func jsonWithJSONString(jsonString: Swift.String) -> JSON {
         let data = jsonString.dataUsingEncoding(NSUTF8StringEncoding)
+        if data == nil { return .Null }
+
         let opts = NSJSONReadingOptions(0)
-        let json: AnyObject! = NSJSONSerialization.JSONObjectWithData(data, options: opts, error: nil)
+        let json: AnyObject! = NSJSONSerialization.JSONObjectWithData(data!, options: opts, error: nil)
 
         return jsonWithAnyObject(json);
     }
     public static func jsonWithAnyObject(json: AnyObject!) -> JSON {
-        if !json { return .Null }
+        if json == nil { return .Null }
 
         switch json! {
         case let number as NSNumber:

@@ -47,10 +47,10 @@ extension Bool: JSONDecodable {
 }
 
 extension NSDate: JSONDecodable {
-    public class func decode(decoder: JSONDecoder) -> NSDate? {
+    public class func decode(decoder: JSONDecoder) -> Self? {
         switch decoder.pop() {
         case let .Number(interval):
-            return NSDate(timeIntervalSince1970: interval)
+            return self(timeIntervalSince1970: interval)
         default:
             return nil
         }
